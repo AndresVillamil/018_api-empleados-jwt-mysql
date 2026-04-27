@@ -81,7 +81,8 @@ controllers/
 
 routes/
  ├── authRoutes.js       👈 login endpoint
-
+ 
+🔑 3. Autenticación (Login + JWT)
  ---
 
  # 🔑 3. Autenticación (Login + JWT)
@@ -90,7 +91,6 @@ routes/
 npm install jsonwebtoken bcryptjs
 
 📌 Ejemplo authController.js
-
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 

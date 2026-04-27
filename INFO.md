@@ -26,12 +26,13 @@ JWT
 En tu caso: JWT
 
 JWT (JSON Web Token) es un token firmado que contiene información del usuario:
-
+```js
 {
   "id": 1,
   "email": "admin@test.com",
   "rol": "admin"
 }
+```
 
 👉 Se genera al hacer login
 👉 Se envía en cada request
@@ -72,6 +73,7 @@ Usa cookies
 
 Vamos a agregar:
 
+```
 middlewares/
  ├── authMiddleware.js   👈 valida token
  ├── roleMiddleware.js   👈 valida rol
@@ -81,9 +83,12 @@ controllers/
 
 routes/
  ├── authRoutes.js       👈 login endpoint
- 
+```
+
+
 🔑 3. Autenticación (Login + JWT)
- ---
+
+---
 
  # 🔑 3. Autenticación (Login + JWT)
 📌 Instalar
@@ -91,33 +96,24 @@ routes/
 npm install jsonwebtoken bcryptjs
 
 📌 Ejemplo authController.js
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 
-// Simulación (en real: BD)
-const usuarios = [
-  { id: 1, email: "admin@test.com", password: bcrypt.hashSync("123456", 10), rol: "admin" },
-  { id: 2, email: "user@test.com", password: bcrypt.hashSync("123456", 10), rol: "user" }
-];
+![alt text](image.png)
 
-const login = async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = usuarios.find(u => u.email === email);
-  if (!user) return res.status(401).json({ error: "Usuario no existe" });
-
-  const valid = bcrypt.compareSync(password, user.password);
-  if (!valid) return res.status(401).json({ error: "Credenciales inválidas" });
-
-  const token = jwt.sign(
-    { id: user.id, rol: user.rol },
-    process.env.JWT_SECRET,
-    { expiresIn: "1h" }
-  );
-
-  res.json({ token });
-};
-
-module.exports = { login };
+---
 
 📌 Middleware de autenticación
+
+![alt text](image-1.png)
+
+📌 Middleware de autorización (roles)
+
+![alt text](image-2.png)
+
+🔐 4. Proteger tus rutas
+✨ Modificar empleadosRoutes.js
+
+![alt text](image-3.png)
+
+🔄 5. Flujo completo
+
+![alt text](image-4.png)

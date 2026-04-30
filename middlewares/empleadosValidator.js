@@ -3,7 +3,7 @@ const { body, validationResult } = require("express-validator");
 const reglasEmpleado = [
 
     body("nombre")
-        .trim()
+        .trim().escape()
         .notEmpty().withMessage("El nombre es obligatorio")
         .isLength({ min: 3 }).withMessage("El nombre debe tener mínimo 3 caracteres"),
 
